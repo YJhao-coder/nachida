@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/gdxx.css">
+    <style>
+		*{
+		  margin:0;
+		  padding:0;
+		  }
+		body{
+		  background-color:#dffee4;
+		  }
+		.sakura{
+			font-size: 18px;
+			overflow:hidden;
+			background-color:rgba(0,0,0,0.6);
+			position: fixed;
+			width: 100%;
+			height: 0;
+			top: 0;
+		}
+		.wabbk,.rcqsk{
+			border-radius:10px;
+			overflow:hidden;
+			padding: 10px;
+			margin:200px auto;
+			width: 300px;
+			/*height: 400px;*/
+			background-color: #b7fca2;
+		}
+		.wabbk{
+			/*display:none;*/
+			background-image: linear-gradient(45deg, #faf879 0%, #65f083 99%, #ffdfbb 100%);
+		}
+		.rcqsk{
+			background-image: linear-gradient(180deg, #2af598 0%, #d9eb76ea 100%);
+		}
+		.srk_mh{
+			padding: 2px;
+			width: 100%;
+			font-size: 18px;
+			border:1px #009efd solid;
+		}
+		.bbnr{
+			font-size: 18px;
+			width: 100%;
+			border-radius: 6px;
+			padding: 2px;
+		}
+		.fbbb,.qxfb{
+			border-radius: 10px;
+			padding: 6px;
+			font-size: 14px;
+			color:#009efd solid;
+			border:1px #009efd solid;
+			background-image: linear-gradient(to top, #d7fdcb 0%, #cbfdcf 1%, #dee9df 100%);
+		}
+		input{
+			border-radius: 10px;
+		}
+		</style>
+    <script>
+		function ajax(url,yingzhenyu,sakura){
+		    var ajax = new XMLHttpRequest();
+		    ajax.open('GET',url, true);
+		    ajax.send(); //发送请求
+		    ajax.onreadystatechange = function(){
+		        if (ajax.readyState == 4) {
+		        if (ajax.status == 200) {
+		            var ajax_fhz = ajax.responseText;
+		            yingzhenyu(ajax_fhz);
+		        }else{
+		            sakura();
+		        }
+		      }
+		    }
+		 }
+		 //ajax(url,function(){},function(){});
+   	</script>
+ 	<title>更多选项</title>
+  </head>
+  <body>
+	<div class="sakura">
+		<div class="wabbk">
+			<p>对方昵称：<input class="srk_mh" placeholder="必填" onkeyup='if(this.value.length>6){this.style.color="red";jc=0;}else{this.style.color="#000";jc=1;}' type="text" /></p>
+			<p>您的昵称：<input class="srk_mh" placeholder="您的昵称可以不填写" onkeyup='if(this.value.length>6){this.style.color="red";}else{this.style.color="#000";}' type="text" /></p>
+			<p>表白的内容:</p>
+			<textarea class="bbnr" placeholder="必填" style="resize: none;" onkeyup='if(this.value.length>255){this.style.color="red";}else{this.style.color="#000";}'  cols="25" rows="8"></textarea><br/>
+			<button class="fbbb" style="float: left;" onclick="fb_love(0);">发布表白</button>
+			<button class="qxfb" style="float: right;" onclick="qx();">取消发布</button>
+		</div>
+		
+		<div class="rcqsk">
+			<p>图片链接：<input class="srk_mh" placeholder="图片链接可以不填写" onkeyup='if(this.value.length>255){this.style.color="red";jc=0;}else{this.style.color="#000";jc=1;}'  type="text" /></p>
+			<p>您的昵称：<input class="srk_mh" placeholder="必填" onkeyup='if(this.value.length>6){this.style.color="red";}else{this.style.color="#000";}'  type="text" /></p>
+			<p>日常趣事内容:</p>
+			<textarea class="bbnr" placeholder="必填" style="resize: none;" onkeyup='if(this.value.length>255){this.style.color="red";}else{this.style.color="#000";}'  cols="25" rows="8"></textarea><br/>
+			<button class="fbbb" style="float: left;" onclick="fb_love(1);">发布日常</button>
+			<button class="qxfb" style="float: right;" onclick="qx();">取消发布</button>
+		</div>
+	</div>
+	<script>
+		function fb_love(number){
+				var jdhq=document.getElementsByClassName('srk_mh');
+				var jdhq0=document.getElementsByClassName('bbnr');
+				if(number==0){
+					/*谨慎的操作*/
+					if(jdhq[0].value.length>6 || jdhq[1].value.length>6 || jdhq0[0].value.length>255){
+						alert("对方昵称，您的昵称，表白内容输入过大了！\n输入规范: 对方昵称不能大于6个字符，您的昵称不能大于6个字符，表白内容不能大于255个字符！");
+					}else if(jdhq[0].value.length==0 || jdhq0[0].value.length==0){
+						alert("你的输入还不完整！请输入完整！");
+					}else{
+						ajax("api/tj.php?&wan=0&mz1="+jdhq[0].value+"&mz2="+jdhq[1].value+"&text="+jdhq0[0].value,function(ajax_fhz){
+							if(ajax_fhz=="内容添加成功！"){
+								window.location.replace('index.php');
+							}
+							alert(ajax_fhz);
+						},function(){
+							alert('发布表白内容失败，请尝试重新发布！');
+						});
+						//window.location.replace("api/tj.php?&wan=0&mz1="+jdhq[0].value+"&mz2="+jdhq[1].value+"&text="+jdhq0[0].value);
+					}
+				}else{
+					/*谨慎的操作*/
+					if(jdhq[2].value.length>255 || jdhq[3].value.length>6 || jdhq0[1].value.length>255){
+						alert("图片链接，您的昵称，日常趣事内容输入过大了！\n输入规范: 图片链接不能大于255个字符，您的昵称不能大于6个字符，日常趣事内容不能大于255个字符！");
+					}else if(jdhq[3].value.length==0 || jdhq0[1].value.length==0){
+						alert("你的输入还不完整！请输入完整！");
+					}else{
+						ajax("api/tj.php?&wan=1&mz1="+jdhq[2].value+"&mz2="+jdhq[3].value+"&text="+jdhq0[1].value,function(ajax_fhz){
+							if(ajax_fhz=="内容添加成功！"){
+								window.location.replace('index.php');
+							}
+							alert(ajax_fhz);
+						},function(){
+							alert('发布日常趣事失败，请尝试重新发布！');
+						});
+						window.location.replace();
+					}
+				}
+		}
+		function qx(){
+			var hqjd=document.getElementsByClassName('sakura')[0];
+			hqjd.style.height="0";
+		}
+	</script>
+	
+	<div class="gdxx">
+      <div class="xx" onclick="fb(0);">
+      <img width="100%" src="https://ak-d.tripcdn.com/images/0Z01z424x8u5jj3u44F71.jpg"/>
+      发布表白
+      </div>
+      
+      <div class="xx" onclick="fb(1);">
+      <img width="100%" src="https://ak-d.tripcdn.com/images/0Z03p424x8u5jrjmuE51C.jpg"/>
+      发布日常
+      </div>
+      <script>
+		  function fb(yzy){
+			  var hqjd=document.getElementsByClassName('sakura')[0];
+			  hqjd.style.height="100%";
+			  var hqjd0=document.getElementsByClassName('wabbk')[0];
+			  var hqjd1=document.getElementsByClassName('rcqsk')[0];
+			  if(yzy==0){	  
+				hqjd0.style.display="block";
+				hqjd1.style.display="none";
+			  }else{
+				hqjd0.style.display="none";
+				hqjd1.style.display="block";
+			  }
+		  }
+	  </script>
+    </div>
+  </body>
+</html>

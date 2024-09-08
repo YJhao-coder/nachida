@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<urlset xmlns="https://你的网站网址/Sitemap.xml">  
+  
+    <!-- 首页 -->  
+    <url>  
+        <loc>http://你的网站网址.cn/</loc>  
+        <lastmod>2025-5-5</lastmod>  
+        <changefreq>daily</changefreq>  
+        <priority>1.0</priority>  
+    </url>  
+  
+</urlset>
