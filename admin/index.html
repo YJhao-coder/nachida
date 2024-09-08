@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+      body {
+        background-color: #f0f4f7;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        width: 300px;
+        padding: 16px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 50px auto;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-radius: 4px;
+      }
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 4px;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+    </style>
+    <title>后台登录</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>后台管理登录</h2>
+      <form class="zh_mm" method="post" action="sakura.php">
+        <input class="zh" placeholder="管理员账号" name="zh" type="text" required />
+        <input class="mm" placeholder="管理员密码" name="mm" type="password" required />
+        <button type="submit">登录</button>
+      </form>
+    </div>
+  </body>
+</html>
